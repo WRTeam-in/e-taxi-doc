@@ -14,17 +14,14 @@ const config = {
   tagline: "Documentation for eTaxi Admin Panel, Mobile App, and Web",
   favicon: "images/logo/favicon.png",
 
-  // Set the production url of your site here
-  // url: 'https://wrteamdev.github.io', // Your GitHub Pages URL
-  // baseUrl: '/e-Taxi/', // The repository name, preceded by a slash
-  // organizationName: 'wrteamdev', // Your GitHub username
-  // projectName: 'e-Taxi', // Your repository name 
-
-  url: 'https://e-taxi-app.github.io',
-//  baseUrl: '/', ///For local uncomment this
- baseUrl: '/documentation/', // For production Uncomment this
-  organizationName: 'e-taxi-app',
-  projectName: 'documentation',
+  // Set the production url of your site here.
+  // Site is published at https://wrteam-in.github.io/e-taxi-doc/
+  url: 'https://wrteam-in.github.io',
+  // baseUrl must match the repository name for GitHub project pages.
+  // Override locally with: BASE_URL=/ bun run start
+  baseUrl: process.env.BASE_URL ?? '/e-taxi-doc/',
+  organizationName: 'WRTeam-in',
+  projectName: 'e-taxi-doc',
   trailingSlash: true,
   deploymentBranch: "gh-pages", // Deployment branch for GitHub Pages
   onBrokenLinks: 'throw',
