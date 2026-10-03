@@ -36,7 +36,7 @@ For general steps with screenshots, see the [Enable Firebase Authentication guid
 
 ## Google Sign-In
 
-### Get Web Client ID from Firebase
+### Enable Google in Firebase
 
 1. Open your [Firebase Console](https://console.firebase.google.com/) and select your project.
 2. Go to **Build → Authentication → Sign-in method**.
@@ -44,28 +44,31 @@ For general steps with screenshots, see the [Enable Firebase Authentication guid
 
 ![Google Sign In - Provider](/images/app/googleSignIn1.png)
 
-4. In the Google provider settings, open **Web SDK configuration**.
-5. Copy the **Web client ID** from here. This is the key you need for the app.
+4. In the Google provider settings, open **Web SDK configuration** and check that a **Web client ID** is filled in. Firebase usually fills it in automatically when Google Sign-In is enabled. Save the provider.
 
 ![Google Sign In - Web Client ID](/images/app/googleSignIn2.png)
 
-> **Note:** Firebase usually fills Web client ID / Web client secret automatically when Google Sign-In is enabled. You mainly need to **copy the Web client ID** and paste it into the app code.
+### Add the Latest Config Files to the Apps
 
-### Set Web Client ID in App (Customer App)
+You don't need to paste any client ID into the app code. Both the **Customer App** and the **Driver App** read the Google client IDs automatically from the Firebase config files:
 
-> **Note:** This step applies to the **customer app** only. The driver app reads the Web client ID automatically from `android/app/google-services.json`, so make sure you have added the latest `google-services.json` file (downloaded after enabling Google Sign-In) to the driver app.
+| Platform | File | What it provides |
+| --- | --- | --- |
+| Android | `android/app/google-services.json` | The Web client ID (the `oauth_client` entry with `"client_type": 3`) |
+| iOS | `ios/Runner/GoogleService-Info.plist` | `CLIENT_ID` and `REVERSED_CLIENT_ID` |
 
-1. Open `lib/features/auth/controller/auth_controller.dart`.
-2. Paste the Web client ID in `_googleWebClientId`:
+1. **After** enabling Google Sign-In (and adding your SHA1/SHA256 keys), download a fresh `google-services.json` and `GoogleService-Info.plist` from **Project settings → Your apps**.
+2. Replace the existing files in **both** apps with the new ones.
+3. **iOS only:** open `ios/Runner/Info.plist` and set the URL scheme under `CFBundleURLTypes → CFBundleURLSchemes` to the `REVERSED_CLIENT_ID` value from your `GoogleService-Info.plist`:
 
-```dart
-static const _googleWebClientId =
-  'ENTER YOUR GoogleWebClientId HERE';
+```xml
+<key>CFBundleURLSchemes</key>
+<array>
+    <string>com.googleusercontent.apps.YOUR-REVERSED-CLIENT-ID</string>
+</array>
 ```
 
-Replace `ENTER YOUR GoogleWebClientId HERE` with the Web client ID copied from Firebase.
-
-![Google Sign In - App Code](/images/app/googleSignIn3.png)
+> **Note:** If the config files were downloaded **before** Google Sign-In was enabled, they will not contain the OAuth client IDs, and Google Sign-In will fail. Download them again and replace the old files.
 
 ## Apple Sign-In (iOS only)
 
