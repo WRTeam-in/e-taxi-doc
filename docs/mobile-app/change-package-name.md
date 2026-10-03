@@ -26,10 +26,10 @@ For detailed information about package name structure and best practices, please
    Execute this command in your terminal
 
    ```bash
-   dart run change_app_package_name:main <NEW_NAME_GOES_HERE>
+   dart run change_app_package_name:main com.yourcompany.appname
    ```
    
-   > **Important Note:** Replace `your_new_package_name` with your desired package name (e.g., `com.yourcompany.appname`). The package name should follow the reverse domain name notation.
+   > **Important Note:** Replace `com.yourcompany.appname` with your desired package name. The package name should follow the reverse domain name notation. The default package names are `com.wrteam.etaxi` (customer app) and `com.wrteam.etaxidriver` (driver app).
 
    ![Change Package Name](/images/app/changePackageName.png)
 

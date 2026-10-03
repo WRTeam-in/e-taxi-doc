@@ -23,7 +23,7 @@ For a complete guide on setting up Flutter and Java JDK, please refer to our off
 
 ## Setup Flutter SDK
 
-1. Download Flutter SDK version 3.41.4 (stable channel) from the official Flutter website:
+1. Download Flutter SDK version 3.47.4 (stable channel) from the official Flutter website:
    [Flutter SDK Downloads](https://docs.flutter.dev/get-started/install)
 
 2. After downloading, extract the Flutter SDK to your desired location.
@@ -36,3 +36,5 @@ For a complete guide on setting up Flutter and Java JDK, please refer to our off
    ```bash
    flutter --version
    ```
+
+> **Note:** Both the customer and driver apps require Flutter **3.44.0 or newer** (Dart 3.12+). Older Flutter versions will fail at `flutter pub get`.

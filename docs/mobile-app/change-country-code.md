@@ -6,7 +6,7 @@ sidebar_position: 18
 
 > **Note:** Country code can also be managed from the **Admin Panel**. The value in `constants.dart` is used as the **default country code** in the app (for example: `"IN"` for India).
 
-Go to `lib/utils/constants.dart` and update the default country code:
+Go to `lib/core/constants/constants.dart` (in both the customer and driver apps) and update the default country code:
 
 ```dart
 String countryCode = "IN";

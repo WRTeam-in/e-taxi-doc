@@ -6,42 +6,64 @@ sidebar_position: 16
 
 ## Android Release Configuration
 
-Before generating a release version of your Android app, you need to ensure the correct signing configuration is set up in your `build.gradle` file.
+Both apps use the Kotlin DSL Gradle file `android/app/build.gradle.kts` and read the signing keys from `android/key.properties`.
 
-### Update Signing Configuration
+### 1. Generate a Keystore
 
-1. Open `android/app/build.gradle`
-2. Locate the `signingConfigs` block
-3. Make sure the release configuration is set to `release` instead of `debug`
+```bash
+keytool -genkey -v -keystore android/app/keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias <your-alias>
+```
 
-```gradle
-android {
-    signingConfigs {
-        release {
-            storeFile file("your-release-key.keystore")
-            storePassword "your-store-password"
-            keyAlias "your-key-alias"
-            keyPassword "your-key-password"
-        }
-    }
-    buildTypes {
-        release {
-            signingConfig signingConfigs.release
-            minifyEnabled false
-            shrinkResources false  
-        }
+### 2. Create `android/key.properties`
+
+**Customer app:**
+
+```properties
+storePassword=your-store-password
+keyPassword=your-key-password
+keyAlias=your-key-alias
+```
+
+> **Important (Customer app):** The keystore file must be placed at exactly `android/app/keystore.jks`. The customer app signs **both debug and release** builds with this keystore (required for Google Sign-In), so even `flutter run` will fail until `android/key.properties` and `android/app/keystore.jks` exist.
+
+**Driver app:**
+
+```properties
+storePassword=your-store-password
+keyPassword=your-key-password
+keyAlias=your-key-alias
+storeFile=keystore.jks
+```
+
+> **Note (Driver app):** `storeFile` is relative to the `android/app` folder (or use an absolute path).
+
+### 3. Signing Configuration
+
+The signing configuration is already set up in `android/app/build.gradle.kts`. Make sure the release build type uses the `release` signing config:
+
+```kotlin
+buildTypes {
+    release {
+        signingConfig = signingConfigs.getByName("release")
+        isMinifyEnabled = false
+        isShrinkResources = false
     }
 }
 ```
 
 ![Release Configuration](/images/app/releaseAPK.png)
 
+> **Important:** Add the SHA-1 and SHA-256 of this keystore in Firebase, otherwise Google Sign-In and phone authentication will not work. You can get them with:
+>
+> ```bash
+> keytool -list -v -keystore android/app/keystore.jks -alias <your-alias>
+> ```
+
 ## Important Notes
 
 - Never commit your keystore file or passwords to version control
 - Store your keystore file securely
 - Keep a backup of your keystore file - if you lose it, you won't be able to update your app on the Play Store
-- The keystore file should be placed in the `android/app` directory
 
 ## Generating Release APK
 
@@ -54,6 +76,11 @@ android {
    ```
    build/app/outputs/flutter-apk/app-release.apk
    ```
+4. For the Play Store, build an App Bundle instead:
+   ```bash
+   flutter build appbundle --release
+   ```
+   The bundle will be generated at `build/app/outputs/bundle/release/app-release.aab`.
 
 ## iOS Release Configuration
 
@@ -89,9 +116,9 @@ For iOS release builds:
 Common issues and solutions:
 
 - **Android signing issues**:
-  - Verify keystore file exists in correct location
-  - Check keystore passwords are correct
-  - Ensure signingConfig is set to `release`
+  - Verify `android/key.properties` exists and the keystore file exists in the correct location
+  - Check keystore passwords and alias are correct
+  - Ensure `signingConfig` is set to `signingConfigs.getByName("release")`
 
 - **iOS signing issues**:
   - Verify certificates are valid in Apple Developer account

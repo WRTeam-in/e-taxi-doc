@@ -6,13 +6,13 @@ sidebar_position: 4
 
 1. **Create firebase project in your account**
 
-   ![Create Firebase 1](/images/app/createFirebase1.png)
+   ![Create Firebase 1](/images/web/createFirebase1.png)
 
-   ![Create Firebase 2](/images/app/createFirebase2.png)
+   ![Create Firebase 2](/images/web/createFirebase2.png)
 
-   ![Create Firebase 3](/images/app/createFirebase3.png)
+   ![Create Firebase 3](/images/web/createFirebase3.png)
 
-   ![Create Firebase 4](/images/app/createFirebase4.png)
+   ![Create Firebase 4](/images/web/createFirebase4.png)
 
 2. **Add web application to your firebase project**
 

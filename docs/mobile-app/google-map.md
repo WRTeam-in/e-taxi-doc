@@ -45,6 +45,8 @@ sidebar_position: 12
    - Maps SDK for iOS  
    - Geocoding API
    - Geolocation API
+   - Directions API
+   - Places API
 
 11. Go to Credential Tab. You will find your Android and iOS API keys.
 
