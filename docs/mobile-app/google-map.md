@@ -6,21 +6,15 @@ sidebar_position: 12
 
 > ⚠️ **NOTE:** If you are using free map API, location data may not be accurate or complete. For accurate location data, it is **strongly recommended** to use place API key.
 
-1. Go to an .env file:
-2. For enabling billing and getting place API key, please refer to our [comprehensive guide](https://www.marketplace.wrteam.in/docs/flutter-common-doc/GeneralSettings/firebase-billing)
+1. For enabling billing and getting place API key, please refer to our [comprehensive guide](https://www.marketplace.wrteam.in/docs/flutter-common-doc/GeneralSettings/firebase-billing)
 
-3. **App:** Open the Flutter app `assets/.env` file and add your Android and iOS Google Maps API keys as shown below:
-
-   ```env
-   GOOGLE_MAPS_API_KEY_Android=YOUR_ANDROID_MAP_API_KEY
-   GOOGLE_MAPS_API_KEY_Ios=YOUR_IOS_MAP_API_KEY
-   ```
-
-   ![Map API Env](/images/app/mapAPI-env.png)
-
-4. Copy place API key from Google Cloud Console and paste it into admin .env file as shown below:
+2. **Admin panel:** Copy the place API key from Google Cloud Console and paste it into the admin `.env` file as shown below. Routes, place search and place details in both the Customer and Driver apps are fetched through the admin panel backend, which calls Google with this key.
 
    ![Map API 9](/images/app/mapAPI9.png)
+
+3. **App:** In the Customer and Driver apps, the Google Maps key is set in `AndroidManifest.xml` (Android) and `AppDelegate.swift` (iOS) — see step 12 below.
+
+4. To create the keys, follow the steps below.
 
 5. Go to Google Cloud Platform. [Click here](https://cloud.google.com/)
 
@@ -52,7 +46,7 @@ sidebar_position: 12
 
     ![Map API 6](/images/app/mapAPI6.png)
 
-12. You have to setup those above API keys for both Platform.
+12. You have to setup those above API keys for both Platform, in **both** the Customer and Driver apps.
 
     ### Android Setup
 

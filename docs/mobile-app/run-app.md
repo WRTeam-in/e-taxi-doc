@@ -39,4 +39,4 @@ pod install --repo-update
 cd ..
 ```
 
-Also check the `README.md` file in the project root for the full setup checklist (Firebase files, `assets/.env`, Android signing).
+Also check the `README.md` file in the project root for the full setup checklist (Firebase files, Google Maps API key, Android signing).
